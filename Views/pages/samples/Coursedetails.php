@@ -1,13 +1,12 @@
 <?php
-require_once '../../../Controllers/CoursesController.php';
-require_once '../../../Controllers/DBController.php';
-require_once '../../../Models/Course.php';
+require_once 'D:\xampp\htdocs\Learning-Management-System\Controllers\CoursesController.php';
+require_once 'D:\xampp\htdocs\Learning-Management-System\Controllers\DBController.php';
+require_once 'D:\xampp\htdocs\Learning-Management-System\Models\Course.php';
 session_start();
 $coursescontroller = new CoursesController;
-$currentvideo = "";
+
 if (isset($_SESSION['courseid'])) {
     $coursevideos = $coursescontroller->GetCourseVideos($_SESSION['courseid']);
-
 
     $videoIndex = isset($_POST['videoIndex']) ? (int)$_POST['videoIndex'] : 0;
 
@@ -16,10 +15,14 @@ if (isset($_SESSION['courseid'])) {
     } else {
         $currentvideo = $coursevideos[0]["VideoPath"];
     }
-} 
-else {
+} else {
     $errmsg = "Error";
 }
+
+ 
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -221,28 +224,30 @@ else {
               </a>
               <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                  <?php
-                if (count($coursevideos )==0){
-                ?>
-                    <div class="alert alert-danger" role="alert" style="font-size : 50px; ">
-                          Not video Course
-                    </div>
-                <?php
-              }
-                else  {
-                    foreach ($coursevideos as $index=> $coursevideo ){
-                        ?>
-                       <li class="nav-item">
+                  <li class="nav-item">
                   <form method="post" style="display:inline;">
-                    <input type="hidden" name="videoIndex" value="<?php echo $index; ?>">
-                    <button type="submit" class="nav-link"><?php echo $coursevideo["VideoId"];?></button>
-                  </form>
+  <input type="hidden" name="videoIndex" value="0">
+  <button type="submit" class="nav-link">Video 1</button>
+</form>
                   </li>
-                      <?php
-                    }
-                }
-              ?>
-                  
+                  <li class="nav-item">
+                  <form method="post" style="display:inline;">
+  <input type="hidden" name="videoIndex" value="1">
+  <button type="submit" class="nav-link">Video 2</button>
+</form>
+                  </li>
+                  <li class="nav-item">
+                  <form method="post" style="display:inline;">
+  <input type="hidden" name="videoIndex" value="2">
+  <button type="submit" class="nav-link">Video 3</button>
+</form>
+                  </li>
+                  <li class="nav-item">
+                  <form method="post" style="display:inline;">
+  <input type="hidden" name="videoIndex" value="3">
+  <button type="submit" class="nav-link">Video 4</button>
+</form>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -250,25 +255,31 @@ else {
               <a class="nav-link" href="../../index.html">
               <i class=" fa fa-mortar-board"></i>
                 <span class="menu-title">exam</span>
+              
               </a>
             </li>
+           
           </ul>
         </nav>
         <!-- partial -->
+       
         <div class="main-panel">
           <div class="content-wrapper">
-          <video controls class="w-100">
-               <source src="<?php echo $currentvideo; ?>" type="video/mp4">   
-          </video>
-        <footer class="footer">
+         
+          <video id="1" controls class="w-100" >
+          <source src="<?php echo htmlspecialchars($currentvideo); ?>" type="video/mp4" />
+         </video>
+         
+         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 <a href="https://www.bootstrapdash.com/" target="_blank">BootstrapDash</a>. All rights reserved.</span>
               <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
             </div>
           </footer>
-          <!-- partial -->
+           <!-- partial -->
         </div>
         <!-- main-panel ends -->
+
       </div>
       <!-- page-body-wrapper ends -->
     </div>
